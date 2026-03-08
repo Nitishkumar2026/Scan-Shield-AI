@@ -9,6 +9,10 @@
 [![Vite](https://img.shields.io/badge/Vite-7.0-646CFF?style=for-the-badge&logo=vite)](https://vitejs.dev/)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 
+## 🔗 Quick Links
+- **Live Project:** [https://shielda.netlify.app/](https://shielda.netlify.app/)
+- **Project Resources:** [https://drive.google.com/drive/folders/1oo_lECv71zWjObHYpm4bVsmWf58XpDH2?usp=drive_link](https://drive.google.com/drive/folders/1oo_lECv71zWjObHYpm4bVsmWf58XpDH2?usp=drive_link)
+
 ---
 
 ## 🚀 Vision
