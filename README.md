@@ -5,93 +5,111 @@
 [![Resources](https://img.shields.io/badge/Project-Resources-red?style=for-the-badge&logo=google-drive)](https://drive.google.com/drive/folders/1oo_lECv71zWjObHYpm4bVsmWf58XpDH2?usp=drive_link)
 [![Hackathon](https://img.shields.io/badge/Hackathon-Ready-orange.svg?style=for-the-badge)](https://github.com/Nitishkumar2026/Scan-Shield-AI)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)](https://react.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-7.0-646CFF?style=for-the-badge&logo=vite)](https://vitejs.dev/)
-[![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
-
-## 🔗 Quick Links
-- **Live Project:** [https://shielda.netlify.app/](https://shielda.netlify.app/)
-- **Project Resources:** [https://drive.google.com/drive/folders/1oo_lECv71zWjObHYpm4bVsmWf58XpDH2?usp=drive_link](https://drive.google.com/drive/folders/1oo_lECv71zWjObHYpm4bVsmWf58XpDH2?usp=drive_link)
-
-## 📸 Project Preview
-![AI Scam Shield X Preview](assets/project-preview.png)
 
 ---
 
-## 🚀 Vision
-In an era of increasingly sophisticated digital fraud, **AI Scam Shield X** stands as a robust, AI-powered defensive layer. Designed for national-level scalability, it empowers citizens with real-time threat intelligence and proactive defense mechanisms against financial scams, phishing attacks, and social engineering.
+## 1. 💡 IDEA TITLE
+**AI Scam Shield X**: A Multi-Layered AI Defensive Ecosystem for National Cyber Security.
 
-## ✨ Key Features
+## 2. 📝 IDEA DESCRIPTION
 
-### 🧠 Advanced Neural Detection
-*   **Real-time Call Analysis**: Deep sentiment and intent analysis on live call transcripts to identify scam patterns before they succeed.
-*   **Intelligent SMS Scanner**: Scans incoming messages for malicious URLs, social engineering tactics, and known phishing signatures.
-*   **UPI Fraud Analyzer**: Pre-transaction verification of UPI IDs against a massive, real-time threat intelligence database.
+### The Problem
+India is witnessing a "digital pandemic" of cyber-crimes. In 2024 alone, reported financial losses from scams reached unprecedented levels. Scammers leverage advanced social engineering, UPI-based phishing, and spoofed calls to target vulnerable populations—specifically the elderly and first-time digital users. Current solutions are fragmented: banking apps focus only on transactions, while SMS filters are easily bypassed by seasonal variations.
 
-### 🛡️ Family Guardian Mode
-*   **Centralized Protection**: Monitor and protect up to 6 family members from a single dashboard.
-*   **Instant Alerts**: Receive real-time notifications when a vulnerable family member interacts with a potential threat.
-*   **Safe-List Management**: Curate trusted contacts and entities for your entire household.
+### The Solution
+**AI Scam Shield X** is a unified, proactive intelligence platform designed to neutralize threats before they manifest as financial loss. It moves beyond simple blacklisting into **behavioral and intent-based detection**.
 
-### 🕸️ Fraud Network Intelligence
-*   **Graph Visualizations**: Interactive D3.js powered fraud graphs showing the connections between different scam entities.
-*   **Threat Heatmaps**: Geographic visualization of active threat clusters across the country.
-*   **Mule Account Tracking**: AI-driven identification of potential money-mule accounts and laundering chains.
+**Core Value Propositions:**
+- **Zero-Trust Communication**: Real-time AI analysis of call transcripts and SMS intent using advanced NLP.
+- **Family Guardian Ecosystem**: Centralized protection for households where tech-savvy users can monitor and safeguard their vulnerable family members.
+- **National Intelligence Hub**: Enterprise-grade dashboards for Law Enforcement Agencies (LEAs) to track mule accounts and fraud networks using interactive graph theory.
 
-### 🖥️ Enterprise Admin Portal
-*   **Institutional Access**: Purpose-built dashboards for banks and law enforcement agencies.
-*   **Neural Traffic Analytics**: Real-time monitoring of network-wide threat propagation.
-*   **Automated Takedowns**: Streamlined reporting to CERT-In and relevant authorities for rapid response.
+## 3. ⚙️ TECHNICAL DETAILS
 
-## 🛠️ Tech Stack
+### Technologies Used
+| Layer | Technologies |
+| :--- | :--- |
+| **Frontend** | React 19, TypeScript, Vite, Framer Motion (High-Fidelity UI) |
+| **Styling** | Tailwind CSS, Custom Cyber-Grid Design System |
+| **Backend** | Python (FastAPI), Node.js (Express API Gateway) |
+| **AI / ML** | NLP (Intent Analysis), Sentiment Tracking, Scam Pattern Matching |
+| **Visualization** | D3.js (Fraud Networking), Recharts (Analytics), SVG (Geospatial Heatmaps) |
+| **Database** | PostgreSQL (Relational Data), Redis (Real-time Threat Cache) |
+| **Cloud/Infra** | Docker, Docker Compose, Netlify |
 
-- **Frontend**: `React 19`, `Vite`, `TypeScript`
-- **Styling**: `Tailwind CSS`, `Custom Cyber Grid System`
-- **Animations**: `Framer Motion` (for fluid, high-fidelity UI transitions)
-- **Charts/Graphs**: `Recharts`, `D3.js`
-- **Icons**: `Lucide React`
-- **State Management**: `React Hooks`, `Context API`
+### Architecture Overview
+The platform follows a scalable Microservices Architecture to ensure that the detection engine remains isolated and highly available.
 
-## 📦 Installation & Setup
+```mermaid
+graph TD
+    User((Citizen/Admin)) -->|Vite/React Frontend| Gateway[Node.js API Gateway]
+    Gateway -->|JWT Auth / Load Balance| AIService[FastAPI AI Detection Service]
+    Gateway -->|Meta Data| Postgres[(PostgreSQL DB)]
+    AIService -->|Risk Scores| Redis((Redis Heatmap Cache))
+    AIService -->|Network Analysis| D3[D3.js Visualization Engine]
+    Gateway -->|Takedown Requests| CERT[Automated Reporting Module]
+```
 
-1. **Clone the repository**
+### Database Used
+- **PostgreSQL**: Serving as the primary source of truth for user profiles, family linkages, and historical incident logs.
+- **Redis**: Employed for high-frequency risk-score caching to provide sub-100ms response times during live-call analysis simulations.
+
+### Third-Party Integrations
+- **Netlify**: Continuous Deployment and static asset hosting.
+- **Lucide React**: Modern, consistent iconography across the cyber-defense interface.
+- **Google Drive API**: Conceptual integration for centralized evidence storage.
+
+---
+
+## 4. 🔗 SUBMISSION LINKS
+
+### 🚀 [Live Demo Landing Page](https://shielda.netlify.app/)
+### 💻 [GitHub Repository](https://github.com/Nitishkumar2026/Scan-Shield-AI)
+### 📁 [Project Resources (PPT/Drive)](https://drive.google.com/drive/folders/1oo_lECv71zWjObHYpm4bVsmWf58XpDH2?usp=drive_link)
+
+---
+
+## 🎥 DEMO & PITCH REQUIREMENTS
+
+> [!IMPORTANT]
+> **Video Links will be updated here upon completion.**
+
+- **Demo Video (3–5 Minutes)**: [Link TBD]
+    - *Includes: Product walkthrough, AI detection features, and Admin portal overview.*
+- **Pitch Video (2–3 Minutes)**: [Link TBD]
+    - *Includes: Problem statement, Solution impact, Market potential, and Team vision.*
+
+### Key Features to Highlights in Videos:
+1.  **Neural Call Interception**: Real-time sentiment analysis.
+2.  **UPI Fraud Analyzer**: Pre-transaction verification logic.
+3.  **Dynamic Threat Heatmap**: National-level visualization.
+4.  **Mule Account Tracker**: Visualizing fraud graph connections.
+
+---
+
+## 🛠️ Installation & Local Setup
+
+1. **Clone & Enter**
    ```bash
    git clone https://github.com/Nitishkumar2026/Scan-Shield-AI.git
    cd Scan-Shield-AI
    ```
 
-2. **Setup Frontend**
+2. **Run Frontend**
    ```bash
    cd app
    npm install
    npm run dev
    ```
 
-3. **Explore Dashboard**
-   Navigate to `http://localhost:5173` to see the futuristic dashboard in action.
-
-## 🌐 Deployment (Netlify)
-
-To deploy the frontend to Netlify:
-
-1.  Connect your GitHub repository to Netlify.
-2.  Set the **Base Directory** to `app`.
-3.  Set the **Build Command** to `npm run build`.
-4.  Set the **Publish Directory** to `app/dist`.
-5.  Add the following **Environment Variables** (if applicable):
-    *   `VITE_API_BASE_URL` - Your backend endpoint.
-
-## 📈 Roadmap
-
-- [x] High-fidelity Cyber UI/UX
-- [x] Real-time SMS & Call analysis components
-- [x] Administrative Intelligence Portal
-- [ ] Mobile App (Social Shield Mobile)
-- [ ] Integration with National Cyber Crime Reporting Portal (NCRP)
-- [ ] Blockchain-based verified entity registry
+3. **Backend Access** (Docker Required)
+   ```bash
+   # From root directory
+   docker-compose up --build
+   ```
 
 ---
-
 <p align="center">
   <strong>Built for the 21st Century Cyber Defense 🇮🇳</strong>
 </p>
+
