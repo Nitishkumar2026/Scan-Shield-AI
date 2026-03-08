@@ -13,6 +13,9 @@
 - **Live Project:** [https://shielda.netlify.app/](https://shielda.netlify.app/)
 - **Project Resources:** [https://drive.google.com/drive/folders/1oo_lECv71zWjObHYpm4bVsmWf58XpDH2?usp=drive_link](https://drive.google.com/drive/folders/1oo_lECv71zWjObHYpm4bVsmWf58XpDH2?usp=drive_link)
 
+## 📸 Project Preview
+![AI Scam Shield X Preview](assets/project-preview.png)
+
 ---
 
 ## 🚀 Vision
