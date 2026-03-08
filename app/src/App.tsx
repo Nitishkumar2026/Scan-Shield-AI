@@ -11,7 +11,7 @@ import FAQ from './sections/FAQ';
 import CTA from './sections/CTA';
 import Footer from './sections/Footer';
 import Dashboard from './sections/Dashboard';
-import CustomCursor from './components/CustomCursor';
+
 import CallAnalysis from './sections/CallAnalysis';
 import SMSScanner from './sections/SMSScanner';
 import UPIAnalyzer from './sections/UPIAnalyzer';
@@ -54,18 +54,18 @@ function App() {
       case 'home':
         return (
           <>
-            <Hero onGetStarted={() => setCurrentPage('dashboard')} />
+            <div id="home"><Hero onGetStarted={() => setCurrentPage('dashboard')} /></div>
             <BrandTrust />
-            <Features />
+            <div id="features"><Features onNavigate={setCurrentPage} /></div>
             <SplitContentProtection />
             <SplitContentMonitoring />
-            <Pricing />
-            <FAQ />
-            <CTA onGetStarted={() => setCurrentPage('dashboard')} />
+            <div id="pricing"><Pricing onNavigate={setCurrentPage} /></div>
+            <div id="faq"><FAQ onNavigate={setCurrentPage} /></div>
+            <div id="contact"><CTA onGetStarted={() => setCurrentPage('dashboard')} /></div>
           </>
         );
       case 'dashboard':
-        return <Dashboard />;
+        return <Dashboard onNavigate={setCurrentPage} />;
       case 'call-analysis':
         return <CallAnalysis />;
       case 'sms-scanner':
@@ -91,7 +91,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-cyber-dark text-white overflow-x-hidden">
-      <CustomCursor />
+
       <Toaster
         position="top-right"
         theme="dark"

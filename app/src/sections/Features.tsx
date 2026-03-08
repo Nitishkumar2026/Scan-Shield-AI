@@ -1,15 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
-import { 
-  Shield, 
-  Bot, 
-  Globe, 
-  Lock, 
-  User, 
+import {
+  Shield,
+  Bot,
+  Globe,
+  Lock,
+  User,
   Clock,
   ArrowRight,
   Sparkles
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import type { Page } from '../App';
+
+interface FeaturesProps {
+  onNavigate: (page: Page) => void;
+}
 
 const features = [
   {
@@ -56,7 +61,7 @@ const features = [
   },
 ];
 
-export default function Features() {
+export default function Features({ onNavigate }: FeaturesProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -79,7 +84,7 @@ export default function Features() {
   }, []);
 
   return (
-    <section 
+    <section
       ref={sectionRef}
       className="relative py-24 overflow-hidden"
     >
@@ -110,16 +115,15 @@ export default function Features() {
           {features.map((feature, index) => {
             const Icon = feature.icon;
             const isHovered = hoveredIndex === index;
-            
+
             return (
               <div
                 key={feature.title}
-                className={`group relative transition-all duration-500 ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
-                style={{ 
+                className={`group relative transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                  }`}
+                style={{
                   transitionDelay: `${index * 0.1}s`,
-                  transform: isHovered ? 'translateY(-4px)' : undefined 
+                  transform: isHovered ? 'translateY(-4px)' : undefined
                 }}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
@@ -143,7 +147,7 @@ export default function Features() {
                     bg-${feature.color}/10 border border-${feature.color}/30
                   `}>
                     <Icon className={`w-7 h-7 text-${feature.color}`} />
-                    
+
                     {/* Glow Effect */}
                     <div className={`absolute inset-0 bg-${feature.color}/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity`} />
                   </div>
@@ -164,7 +168,10 @@ export default function Features() {
 
                   {/* Learn More Link */}
                   <div className="mt-4 pt-4 border-t border-white/5">
-                    <button className="flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors group/link">
+                    <button
+                      onClick={() => onNavigate('dashboard')}
+                      className="flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors group/link"
+                    >
                       Learn more
                       <ArrowRight className="w-4 h-4 transition-transform group-hover/link:translate-x-1" />
                     </button>
@@ -185,7 +192,10 @@ export default function Features() {
           <p className="text-white/60 mb-4">
             And many more features to keep you safe
           </p>
-          <button className="inline-flex items-center gap-2 text-cyber-blue hover:text-cyber-cyan transition-colors">
+          <button
+            onClick={() => onNavigate('dashboard')}
+            className="inline-flex items-center gap-2 text-cyber-blue hover:text-cyber-cyan transition-colors"
+          >
             View all features
             <ArrowRight className="w-4 h-4" />
           </button>

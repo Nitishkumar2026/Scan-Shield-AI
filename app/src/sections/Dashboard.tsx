@@ -14,6 +14,7 @@ import IndiaHeatmap from '@/components/IndiaHeatmap';
 import Clock from '@/components/Clock';
 import InterceptionLog from '@/components/InterceptionLog';
 import type { ThreatData } from '@/sections/ThreatHeatmap';
+import type { Page } from '@/App';
 
 // Mock threat data
 const threatData: ThreatData[] = [
@@ -33,7 +34,11 @@ const liveActivity = [
   { id: 5, action: 'REPORTED', type: 'sms', source: 'Unknown', location: 'Pune', time: '18s ago' },
 ];
 
-export default function Dashboard() {
+interface DashboardProps {
+  onNavigate: (page: Page) => void;
+}
+
+export default function Dashboard({ onNavigate }: DashboardProps) {
   const [selectedCity, setSelectedCity] = useState<ThreatData | null>(null);
 
   const stats = useMemo(() => [
@@ -185,22 +190,34 @@ export default function Dashboard() {
                 <h3 className="font-exo font-black text-white text-xs tracking-[0.2em] uppercase">Critical Deployment</h3>
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <button className="flex flex-col items-center justify-center p-4 glass-panel hover:bg-cyber-blue group/btn transition-all duration-500 border-white/5 hover:border-cyber-blue/50 shadow-[0_0_10px_rgba(0,0,0,0.3)]">
+                <button
+                  onClick={() => onNavigate('call-analysis')}
+                  className="flex flex-col items-center justify-center p-4 glass-panel hover:bg-cyber-blue group/btn transition-all duration-500 border-white/5 hover:border-cyber-blue/50 shadow-[0_0_10px_rgba(0,0,0,0.3)]"
+                >
                   <Phone className="w-6 h-6 text-cyber-blue mb-2 group-hover/btn:text-white transition-all scale-90 group-hover/btn:scale-110" />
                   <span className="text-[9px] font-black text-white/50 group-hover/btn:text-white uppercase tracking-widest transition-colors mb-1">Analyze</span>
                   <span className="text-[10px] font-black text-white group-hover/btn:text-white inline-block">CALLS</span>
                 </button>
-                <button className="flex flex-col items-center justify-center p-4 glass-panel hover:bg-cyber-cyan group/btn transition-all duration-500 border-white/5 hover:border-cyber-cyan/50 shadow-[0_0_10px_rgba(0,0,0,0.3)]">
+                <button
+                  onClick={() => onNavigate('sms-scanner')}
+                  className="flex flex-col items-center justify-center p-4 glass-panel hover:bg-cyber-cyan group/btn transition-all duration-500 border-white/5 hover:border-cyber-cyan/50 shadow-[0_0_10px_rgba(0,0,0,0.3)]"
+                >
                   <MessageSquare className="w-6 h-6 text-cyber-cyan mb-2 group-hover/btn:text-white transition-all scale-90 group-hover/btn:scale-110" />
                   <span className="text-[9px] font-black text-white/50 group-hover/btn:text-white uppercase tracking-widest transition-colors mb-1">Scan</span>
                   <span className="text-[10px] font-black text-white group-hover/btn:text-white inline-block">SMS</span>
                 </button>
-                <button className="flex flex-col items-center justify-center p-4 glass-panel hover:bg-cyber-green group/btn transition-all duration-500 border-white/5 hover:border-cyber-green/50 shadow-[0_0_10px_rgba(0,0,0,0.3)]">
+                <button
+                  onClick={() => onNavigate('upi-analyzer')}
+                  className="flex flex-col items-center justify-center p-4 glass-panel hover:bg-cyber-green group/btn transition-all duration-500 border-white/5 hover:border-cyber-green/50 shadow-[0_0_10px_rgba(0,0,0,0.3)]"
+                >
                   <CreditCard className="w-6 h-6 text-cyber-green mb-2 group-hover/btn:text-white transition-all scale-90 group-hover/btn:scale-110" />
                   <span className="text-[9px] font-black text-white/50 group-hover/btn:text-white uppercase tracking-widest transition-colors mb-1">Verify</span>
                   <span className="text-[10px] font-black text-white group-hover/btn:text-white inline-block">UPI</span>
                 </button>
-                <button className="flex flex-col items-center justify-center p-4 glass-panel hover:bg-cyber-red group/btn transition-all duration-500 border-white/5 hover:border-cyber-red/50 shadow-[0_0_10px_rgba(0,0,0,0.3)]">
+                <button
+                  onClick={() => onNavigate('community-reports')}
+                  className="flex flex-col items-center justify-center p-4 glass-panel hover:bg-cyber-red group/btn transition-all duration-500 border-white/5 hover:border-cyber-red/50 shadow-[0_0_10px_rgba(0,0,0,0.3)]"
+                >
                   <AlertTriangle className="w-6 h-6 text-cyber-red mb-2 group-hover/btn:text-white transition-all scale-90 group-hover/btn:scale-110" />
                   <span className="text-[9px] font-black text-white/50 group-hover/btn:text-white uppercase tracking-widest transition-colors mb-1">Report</span>
                   <span className="text-[10px] font-black text-white group-hover/btn:text-white inline-block">THREAT</span>

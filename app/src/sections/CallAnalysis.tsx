@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { toast } from 'sonner';
 import {
   Phone,
   Mic,
@@ -111,6 +112,8 @@ export default function CallAnalysis() {
     return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
+  const [visualizerHeights] = useState(() => [...Array(20)].map(() => (Math.random() * 60 + 20)));
+
   return (
     <div className="min-h-screen pt-14 lg:pl-64 bg-black/40">
       <div className="p-4 lg:p-6 h-full flex flex-col">
@@ -190,12 +193,12 @@ export default function CallAnalysis() {
 
                 {/* Audio Waveform Viz */}
                 <div className="flex-1 flex items-center justify-center gap-1 opacity-80">
-                  {[...Array(20)].map((_, i) => (
+                  {visualizerHeights.map((height, i) => (
                     <div
                       key={i}
                       className="w-1.5 bg-cyber-red rounded-full animate-wave"
                       style={{
-                        height: `${Math.random() * 60 + 20}%`,
+                        height: `${height}%`,
                         animationDelay: `${i * 0.05}s`
                       }}
                     />
@@ -296,11 +299,17 @@ export default function CallAnalysis() {
               {/* Action Buttons */}
               <div className="cyber-card p-4 space-y-3 bg-cyber-red/5 border-cyber-red/20">
                 <h3 className="font-exo font-bold text-cyber-red mb-2 text-sm">INTERVENTION</h3>
-                <Button className="w-full cyber-button bg-cyber-red hover:bg-red-600 border-none h-14 text-lg font-bold shadow-[0_0_20px_rgba(234,56,76,0.4)]">
+                <Button
+                  onClick={() => toast.success('Counter-intercept initiated. Call terminated.')}
+                  className="w-full cyber-button bg-cyber-red hover:bg-red-600 border-none h-14 text-lg font-bold shadow-[0_0_20px_rgba(234,56,76,0.4)]"
+                >
                   <XCircle className="w-6 h-6 mr-2" />
                   TERMINATE CALL
                 </Button>
-                <Button className="w-full cyber-button bg-cyber-blue hover:bg-blue-600 border-none h-12 font-bold">
+                <Button
+                  onClick={() => toast.info('Alert signal broadcasted to national cyber crime cell.')}
+                  className="w-full cyber-button bg-cyber-blue hover:bg-blue-600 border-none h-12 font-bold"
+                >
                   <ShieldAlert className="w-5 h-5 mr-2" />
                   ALERT AUTHORITIES
                 </Button>

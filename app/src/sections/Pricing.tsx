@@ -3,6 +3,11 @@ import { Check, Sparkles, Zap, Shield, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
+import type { Page } from '../App';
+
+interface PricingProps {
+  onNavigate: (page: Page) => void;
+}
 
 const plans = [
   {
@@ -65,7 +70,7 @@ const plans = [
   },
 ];
 
-export default function Pricing() {
+export default function Pricing({ onNavigate }: PricingProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [isYearly, setIsYearly] = useState(false);
   const [hoveredPlan, setHoveredPlan] = useState<string | null>(null);
@@ -89,7 +94,7 @@ export default function Pricing() {
   }, []);
 
   return (
-    <section 
+    <section
       ref={sectionRef}
       className="relative py-24 overflow-hidden"
     >
@@ -116,7 +121,7 @@ export default function Pricing() {
           {/* Billing Toggle */}
           <div className="flex items-center justify-center gap-4">
             <span className={`text-sm ${!isYearly ? 'text-white' : 'text-white/50'}`}>Monthly</span>
-            <Switch 
+            <Switch
               checked={isYearly}
               onCheckedChange={setIsYearly}
               className="data-[state=checked]:bg-cyber-blue"
@@ -138,10 +143,9 @@ export default function Pricing() {
             return (
               <div
                 key={plan.name}
-                className={`relative transition-all duration-500 ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
-                style={{ 
+                className={`relative transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                  }`}
+                style={{
                   transitionDelay: `${index * 0.1}s`,
                   transform: isHovered ? 'translateZ(20px)' : 'translateZ(0)',
                 }}
@@ -207,11 +211,12 @@ export default function Pricing() {
                   </div>
 
                   {/* CTA Button */}
-                  <Button 
+                  <Button
+                    onClick={() => onNavigate('dashboard')}
                     className={`
                       w-full py-6 group
-                      ${plan.isPopular 
-                        ? 'cyber-button' 
+                      ${plan.isPopular
+                        ? 'cyber-button'
                         : 'bg-white/5 hover:bg-white/10 text-white border border-white/20'
                       }
                     `}
@@ -223,8 +228,8 @@ export default function Pricing() {
                   {/* Limits Info */}
                   <div className="mt-4 pt-4 border-t border-white/5 text-center">
                     <p className="text-xs text-white/40">
-                      {plan.limits.familyMembers === 1 
-                        ? 'Individual use' 
+                      {plan.limits.familyMembers === 1
+                        ? 'Individual use'
                         : `Up to ${plan.limits.familyMembers} family members`}
                     </p>
                   </div>
@@ -239,7 +244,11 @@ export default function Pricing() {
           <p className="text-white/60 mb-4">
             Need enterprise-level protection for your organization?
           </p>
-          <Button variant="outline" className="border-cyber-blue/50 text-white hover:bg-cyber-blue/10">
+          <Button
+            variant="outline"
+            onClick={() => onNavigate('dashboard')}
+            className="border-cyber-blue/50 text-white hover:bg-cyber-blue/10"
+          >
             Contact Sales
           </Button>
         </div>

@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { 
-  Shield, 
-  Menu, 
-  X, 
-  Home, 
-  LayoutDashboard, 
-  Phone, 
-  MessageSquare, 
+import {
+  Shield,
+  Menu,
+  X,
+  Home,
+  LayoutDashboard,
+  Phone,
+  MessageSquare,
   CreditCard,
   Network,
   Map,
@@ -55,10 +55,28 @@ export default function Navigation({ isScrolled, currentPage, onNavigate }: Navi
 
   const isLandingPage = currentPage === 'home';
 
-  const handleNavigate = (page: Page) => {
-    onNavigate(page);
+  const handleNavigate = (page: Page, sectionId?: string) => {
+    if (page === 'home' && sectionId) {
+      if (currentPage === 'home') {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        onNavigate('home');
+        // Wait for render then scroll
+        setTimeout(() => {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      }
+    } else {
+      onNavigate(page);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
     setIsMobileMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // Close mobile menu on resize
@@ -75,25 +93,22 @@ export default function Navigation({ isScrolled, currentPage, onNavigate }: Navi
   if (isLandingPage) {
     return (
       <>
-        <nav 
-          className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-            isScrolled 
-              ? 'py-2' 
-              : 'py-4'
-          }`}
+        <nav
+          className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
+            ? 'py-2'
+            : 'py-4'
+            }`}
         >
-          <div className={`mx-auto transition-all duration-500 ${
-            isScrolled 
-              ? 'max-w-4xl px-6' 
-              : 'max-w-7xl px-4 sm:px-6 lg:px-8'
-          }`}>
-            <div className={`flex items-center justify-between transition-all duration-500 ${
-              isScrolled 
-                ? 'bg-cyber-dark/90 backdrop-blur-xl border border-cyber-blue/30 rounded-full px-6 py-2 shadow-glow' 
-                : ''
+          <div className={`mx-auto transition-all duration-500 ${isScrolled
+            ? 'max-w-4xl px-6'
+            : 'max-w-7xl px-4 sm:px-6 lg:px-8'
             }`}>
+            <div className={`flex items-center justify-between transition-all duration-500 ${isScrolled
+              ? 'bg-cyber-dark/90 backdrop-blur-xl border border-cyber-blue/30 rounded-full px-6 py-2 shadow-glow'
+              : ''
+              }`}>
               {/* Logo */}
-              <button 
+              <button
                 onClick={() => handleNavigate('home')}
                 className="flex items-center gap-2 group"
               >
@@ -110,9 +125,10 @@ export default function Navigation({ isScrolled, currentPage, onNavigate }: Navi
 
               {/* Desktop Navigation */}
               <div className="hidden lg:flex items-center gap-1">
-                {['Home', 'Features', 'Pricing', 'Blog', 'Contact'].map((item) => (
+                {['Home', 'Features', 'Pricing', 'FAQ', 'Contact'].map((item) => (
                   <button
                     key={item}
+                    onClick={() => handleNavigate('home', item.toLowerCase())}
                     className="relative px-4 py-2 text-sm text-white/70 hover:text-white transition-colors group"
                   >
                     <span className="relative z-10">{item}</span>
@@ -124,21 +140,21 @@ export default function Navigation({ isScrolled, currentPage, onNavigate }: Navi
 
               {/* Actions */}
               <div className="flex items-center gap-3">
-                <button 
+                <button
                   onClick={() => handleNavigate('dashboard')}
                   className="hidden sm:block text-sm text-white/70 hover:text-white transition-colors"
                 >
                   Sign In
                 </button>
-                <Button 
+                <Button
                   onClick={() => handleNavigate('dashboard')}
                   className="cyber-button text-sm"
                 >
                   Get Started
                 </Button>
-                
+
                 {/* Mobile Menu Button */}
-                <button 
+                <button
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                   className="lg:hidden p-2 text-white/70 hover:text-white"
                 >
@@ -150,28 +166,23 @@ export default function Navigation({ isScrolled, currentPage, onNavigate }: Navi
         </nav>
 
         {/* Mobile Menu */}
-        <div className={`fixed inset-0 z-40 lg:hidden transition-all duration-300 ${
-          isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}>
-          <div className="absolute inset-0 bg-cyber-dark/95 backdrop-blur-xl" onClick={() => setIsMobileMenuOpen(false)} />
-          <div className={`absolute top-20 left-4 right-4 bg-cyber-dark border border-cyber-blue/30 rounded-2xl p-6 transition-all duration-300 ${
-            isMobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0'
+        <div className={`fixed inset-0 z-40 lg:hidden transition-all duration-300 ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
           }`}>
+          <div className="absolute inset-0 bg-cyber-dark/95 backdrop-blur-xl" onClick={() => setIsMobileMenuOpen(false)} />
+          <div className={`absolute top-20 left-4 right-4 bg-cyber-dark border border-cyber-blue/30 rounded-2xl p-6 transition-all duration-300 ${isMobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0'
+            }`}>
             <div className="flex flex-col gap-2">
-              {['Home', 'Features', 'Pricing', 'Blog', 'Contact'].map((item) => (
+              {['Home', 'Features', 'Pricing', 'FAQ', 'Contact'].map((item) => (
                 <button
                   key={item}
-                  onClick={() => {
-                    if (item === 'Home') handleNavigate('home');
-                    else setIsMobileMenuOpen(false);
-                  }}
+                  onClick={() => handleNavigate('home', item.toLowerCase())}
                   className="px-4 py-3 text-left text-white/70 hover:text-white hover:bg-cyber-blue/10 rounded-lg transition-all"
                 >
                   {item}
                 </button>
               ))}
               <hr className="border-white/10 my-2" />
-              <Button 
+              <Button
                 onClick={() => handleNavigate('dashboard')}
                 className="cyber-button w-full"
               >
@@ -192,13 +203,13 @@ export default function Navigation({ isScrolled, currentPage, onNavigate }: Navi
         <div className="flex items-center justify-between h-14 px-4">
           {/* Left: Logo & Menu Toggle */}
           <div className="flex items-center gap-4">
-            <button 
+            <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="lg:hidden p-2 text-white/70 hover:text-white"
             >
               <Menu className="w-5 h-5" />
             </button>
-            <button 
+            <button
               onClick={() => handleNavigate('home')}
               className="flex items-center gap-2"
             >
@@ -243,10 +254,9 @@ export default function Navigation({ isScrolled, currentPage, onNavigate }: Navi
                   ].map((notif, i) => (
                     <DropdownMenuItem key={i} className="p-3 hover:bg-white/5 cursor-pointer">
                       <div className="flex items-start gap-3">
-                        <div className={`w-2 h-2 rounded-full mt-1.5 ${
-                          notif.type === 'alert' ? 'bg-cyber-red' :
+                        <div className={`w-2 h-2 rounded-full mt-1.5 ${notif.type === 'alert' ? 'bg-cyber-red' :
                           notif.type === 'success' ? 'bg-cyber-green' : 'bg-cyber-blue'
-                        }`} />
+                          }`} />
                         <div>
                           <p className="text-sm text-white">{notif.title}</p>
                           <p className="text-xs text-white/50">{notif.time}</p>
@@ -280,7 +290,7 @@ export default function Navigation({ isScrolled, currentPage, onNavigate }: Navi
                   <Settings className="w-4 h-4" /> Settings
                 </DropdownMenuItem>
                 <DropdownMenuSeparator className="bg-white/10" />
-                <DropdownMenuItem 
+                <DropdownMenuItem
                   className="gap-2 text-cyber-red"
                   onClick={() => handleNavigate('home')}
                 >
@@ -293,9 +303,8 @@ export default function Navigation({ isScrolled, currentPage, onNavigate }: Navi
       </nav>
 
       {/* Sidebar */}
-      <aside className={`fixed left-0 top-14 bottom-0 z-40 bg-cyber-dark/95 backdrop-blur-xl border-r border-cyber-blue/20 transition-all duration-300 ${
-        isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-      } w-64`}>
+      <aside className={`fixed left-0 top-14 bottom-0 z-40 bg-cyber-dark/95 backdrop-blur-xl border-r border-cyber-blue/20 transition-all duration-300 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+        } w-64`}>
         <div className="p-4 space-y-1 overflow-y-auto h-full scrollbar-thin">
           {/* Main Navigation */}
           <div className="space-y-1">
@@ -306,11 +315,10 @@ export default function Navigation({ isScrolled, currentPage, onNavigate }: Navi
               <button
                 key={item.page}
                 onClick={() => handleNavigate(item.page)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${
-                  currentPage === item.page
-                    ? 'bg-cyber-blue/20 text-cyber-blue border border-cyber-blue/30'
-                    : 'text-white/70 hover:text-white hover:bg-white/5'
-                }`}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${currentPage === item.page
+                  ? 'bg-cyber-blue/20 text-cyber-blue border border-cyber-blue/30'
+                  : 'text-white/70 hover:text-white hover:bg-white/5'
+                  }`}
               >
                 <item.icon className="w-5 h-5" />
                 <span className="text-sm">{item.label}</span>
@@ -330,11 +338,10 @@ export default function Navigation({ isScrolled, currentPage, onNavigate }: Navi
               <button
                 key={item.page}
                 onClick={() => handleNavigate(item.page)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${
-                  currentPage === item.page
-                    ? 'bg-cyber-blue/20 text-cyber-blue border border-cyber-blue/30'
-                    : 'text-white/70 hover:text-white hover:bg-white/5'
-                }`}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${currentPage === item.page
+                  ? 'bg-cyber-blue/20 text-cyber-blue border border-cyber-blue/30'
+                  : 'text-white/70 hover:text-white hover:bg-white/5'
+                  }`}
               >
                 <item.icon className="w-5 h-5" />
                 <span className="text-sm">{item.label}</span>
@@ -351,11 +358,10 @@ export default function Navigation({ isScrolled, currentPage, onNavigate }: Navi
               <button
                 key={item.page}
                 onClick={() => handleNavigate(item.page)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${
-                  currentPage === item.page
-                    ? 'bg-cyber-blue/20 text-cyber-blue border border-cyber-blue/30'
-                    : 'text-white/70 hover:text-white hover:bg-white/5'
-                }`}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${currentPage === item.page
+                  ? 'bg-cyber-blue/20 text-cyber-blue border border-cyber-blue/30'
+                  : 'text-white/70 hover:text-white hover:bg-white/5'
+                  }`}
               >
                 <item.icon className="w-5 h-5" />
                 <span className="text-sm">{item.label}</span>
@@ -372,11 +378,10 @@ export default function Navigation({ isScrolled, currentPage, onNavigate }: Navi
               <button
                 key={item.page}
                 onClick={() => handleNavigate(item.page)}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${
-                  currentPage === item.page
-                    ? 'bg-cyber-blue/20 text-cyber-blue border border-cyber-blue/30'
-                    : 'text-white/70 hover:text-white hover:bg-white/5'
-                }`}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${currentPage === item.page
+                  ? 'bg-cyber-blue/20 text-cyber-blue border border-cyber-blue/30'
+                  : 'text-white/70 hover:text-white hover:bg-white/5'
+                  }`}
               >
                 <item.icon className="w-5 h-5" />
                 <span className="text-sm">{item.label}</span>
@@ -388,11 +393,10 @@ export default function Navigation({ isScrolled, currentPage, onNavigate }: Navi
           <div className="space-y-1 mt-4 pt-4 border-t border-white/10">
             <button
               onClick={() => handleNavigate('admin-portal')}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${
-                currentPage === 'admin-portal'
-                  ? 'bg-cyber-purple/20 text-cyber-purple border border-cyber-purple/30'
-                  : 'text-white/70 hover:text-white hover:bg-white/5'
-              }`}
+              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${currentPage === 'admin-portal'
+                ? 'bg-cyber-purple/20 text-cyber-purple border border-cyber-purple/30'
+                : 'text-white/70 hover:text-white hover:bg-white/5'
+                }`}
             >
               <Settings className="w-5 h-5" />
               <span className="text-sm">Admin Portal</span>
@@ -403,7 +407,7 @@ export default function Navigation({ isScrolled, currentPage, onNavigate }: Navi
 
       {/* Overlay for mobile */}
       {isMobileMenuOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/50 z-30 lg:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
         />

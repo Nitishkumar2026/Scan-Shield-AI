@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ChevronDown, HelpCircle } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import type { Page } from '../App';
 
 const faqs = [
   {
@@ -29,7 +30,11 @@ const faqs = [
   },
 ];
 
-export default function FAQ() {
+interface FAQProps {
+  onNavigate: (page: Page) => void;
+}
+
+export default function FAQ({ onNavigate }: FAQProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -56,7 +61,7 @@ export default function FAQ() {
   };
 
   return (
-    <section 
+    <section
       ref={sectionRef}
       className="relative py-24 overflow-hidden"
     >
@@ -89,12 +94,11 @@ export default function FAQ() {
             return (
               <div
                 key={index}
-                className={`transition-all duration-500 ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                }`}
+                className={`transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                  }`}
                 style={{ transitionDelay: `${index * 0.1}s` }}
               >
-                <div 
+                <div
                   className={`
                     cyber-card overflow-hidden transition-all duration-300
                     ${isOpen ? 'border-cyber-blue/50 bg-cyber-blue/5' : ''}
@@ -138,7 +142,10 @@ export default function FAQ() {
           <p className="text-white/60 mb-4">
             Still have questions?
           </p>
-          <button className="text-cyber-blue hover:text-cyber-cyan transition-colors">
+          <button
+            onClick={() => onNavigate('dashboard')}
+            className="text-cyber-blue hover:text-cyber-cyan transition-colors"
+          >
             Contact our support team
           </button>
         </div>

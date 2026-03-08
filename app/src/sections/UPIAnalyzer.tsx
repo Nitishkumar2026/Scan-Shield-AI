@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { 
-  CreditCard, 
-  Search, 
-  AlertTriangle, 
-  CheckCircle, 
+import { toast } from 'sonner';
+import {
+  CreditCard,
+  Search,
+  AlertTriangle,
+  CheckCircle,
   Shield,
   Brain,
   History,
@@ -81,16 +82,16 @@ export default function UPIAnalyzer() {
 
   const analyzeUPI = async () => {
     if (!upiId.trim()) return;
-    
+
     setIsAnalyzing(true);
     setResult(null);
-    
+
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 2000));
-    
+
     // Mock analysis - random result for demo
     const isFraudulent = upiId.toLowerCase().includes('scam') || upiId.toLowerCase().includes('fake') || Math.random() > 0.7;
-    
+
     const analysis: UPIAnalysis = {
       id: Date.now().toString(),
       upiId: upiId,
@@ -98,7 +99,7 @@ export default function UPIAnalyzer() {
       riskScore: isFraudulent ? 75 + Math.floor(Math.random() * 25) : Math.floor(Math.random() * 20),
       isFraudulent,
       confidence: 85 + Math.floor(Math.random() * 15),
-      anomalyFactors: isFraudulent 
+      anomalyFactors: isFraudulent
         ? riskIndicators.slice(0, Math.floor(Math.random() * 3) + 1).map(r => r.label)
         : [],
       transactionHistory: {
@@ -108,7 +109,7 @@ export default function UPIAnalyzer() {
       },
       timestamp: new Date(),
     };
-    
+
     setResult(analysis);
     setHistory(prev => [analysis, ...prev]);
     setIsAnalyzing(false);
@@ -153,7 +154,7 @@ export default function UPIAnalyzer() {
             {/* Search Panel */}
             <div className="cyber-card p-6">
               <h3 className="font-semibold text-white mb-4">Verify UPI ID</h3>
-              
+
               <div className="flex gap-3 mb-4">
                 <div className="flex-1 relative">
                   <CreditCard className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-white/30" />
@@ -165,7 +166,7 @@ export default function UPIAnalyzer() {
                     onKeyDown={(e) => e.key === 'Enter' && analyzeUPI()}
                   />
                 </div>
-                <Button 
+                <Button
                   onClick={analyzeUPI}
                   disabled={isAnalyzing || !upiId.trim()}
                   className="cyber-button"
@@ -280,7 +281,7 @@ export default function UPIAnalyzer() {
                       <div>
                         <p className="text-cyber-red font-medium">High Risk UPI ID Detected</p>
                         <p className="text-sm text-white/60 mt-1">
-                          This UPI ID has been flagged by our system. We strongly recommend 
+                          This UPI ID has been flagged by our system. We strongly recommend
                           not making any payments to this ID.
                         </p>
                       </div>
@@ -293,7 +294,7 @@ export default function UPIAnalyzer() {
                       <div>
                         <p className="text-cyber-green font-medium">UPI ID Appears Safe</p>
                         <p className="text-sm text-white/60 mt-1">
-                          No suspicious activity detected. However, always verify the recipient 
+                          No suspicious activity detected. However, always verify the recipient
                           before making payments.
                         </p>
                       </div>
@@ -358,21 +359,20 @@ export default function UPIAnalyzer() {
               </h3>
               <div className="space-y-3 max-h-[400px] overflow-y-auto scrollbar-thin">
                 {history.map((item) => (
-                  <div 
+                  <div
                     key={item.id}
-                    className={`p-3 rounded-lg border ${
-                      item.isFraudulent 
-                        ? 'bg-cyber-red/5 border-cyber-red/20' 
-                        : 'bg-cyber-green/5 border-cyber-green/20'
-                    }`}
+                    onClick={() => setResult(item)}
+                    className={`p-3 rounded-lg border cursor-pointer hover:bg-white/5 transition-all ${item.isFraudulent
+                      ? 'bg-cyber-red/5 border-cyber-red/20'
+                      : 'bg-cyber-green/5 border-cyber-green/20'
+                      }`}
                   >
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-sm text-white font-medium truncate">{item.upiId}</span>
-                      <Badge className={`text-xs ${
-                        item.isFraudulent 
-                          ? 'bg-cyber-red/20 text-cyber-red' 
-                          : 'bg-cyber-green/20 text-cyber-green'
-                      }`}>
+                      <Badge className={`text-xs ${item.isFraudulent
+                        ? 'bg-cyber-red/20 text-cyber-red'
+                        : 'bg-cyber-green/20 text-cyber-green'
+                        }`}>
                         {item.isFraudulent ? `${item.riskScore}%` : 'Safe'}
                       </Badge>
                     </div>
@@ -390,7 +390,10 @@ export default function UPIAnalyzer() {
               <p className="text-sm text-white/50 mb-4">
                 Encountered a fraudulent UPI ID? Report it to help protect others.
               </p>
-              <Button className="w-full cyber-button">
+              <Button
+                onClick={() => toast.success('UPI fraud report submitted thank you.')}
+                className="w-full cyber-button"
+              >
                 <AlertTriangle className="w-4 h-4 mr-2" />
                 Report UPI Fraud
               </Button>

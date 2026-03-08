@@ -1,6 +1,8 @@
 # 🛡️ AI Scam Shield X
 ### *The Next-Generation National Cyber Intelligence Platform*
 
+[![Live Project](https://img.shields.io/badge/Live-Shield--X-blue?style=for-the-badge&logo=netlify)](https://shielda.netlify.app/)
+[![Resources](https://img.shields.io/badge/Project-Resources-red?style=for-the-badge&logo=google-drive)](https://drive.google.com/drive/folders/1oo_lECv71zWjObHYpm4bVsmWf58XpDH2?usp=drive_link)
 [![Hackathon](https://img.shields.io/badge/Hackathon-Ready-orange.svg?style=for-the-badge)](https://github.com/Nitishkumar2026/Scan-Shield-AI)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)

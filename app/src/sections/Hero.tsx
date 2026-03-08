@@ -37,7 +37,7 @@ export default function Hero({ onGetStarted }: HeroProps) {
   ];
 
   return (
-    <section 
+    <section
       ref={heroRef}
       className="relative min-h-screen flex items-center pt-20 overflow-hidden"
     >
@@ -47,10 +47,10 @@ export default function Hero({ onGetStarted }: HeroProps) {
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyber-blue/10 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-cyber-cyan/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyber-purple/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
-        
+
         {/* Grid Lines */}
         <div className="absolute inset-0 cyber-grid opacity-30" />
-        
+
         {/* Data Stream Lines */}
         {[...Array(5)].map((_, i) => (
           <div
@@ -87,8 +87,8 @@ export default function Hero({ onGetStarted }: HeroProps) {
                 <span className="text-gradient">AI Scam Shield X</span>
               </h1>
               <p className="text-lg text-white/70 max-w-xl leading-relaxed">
-                Advanced AI-powered protection against scams, phishing, and fraud. 
-                Real-time threat detection powered by machine learning and national-level 
+                Advanced AI-powered protection against scams, phishing, and fraud.
+                Real-time threat detection powered by machine learning and national-level
                 cyber intelligence.
               </p>
             </div>
@@ -96,7 +96,7 @@ export default function Hero({ onGetStarted }: HeroProps) {
             {/* Features List */}
             <div className="flex flex-wrap gap-3">
               {['Real-time Detection', 'AI Analysis', 'Network Intelligence', 'Family Protection'].map((feature, i) => (
-                <div 
+                <div
                   key={feature}
                   className="flex items-center gap-2 text-sm text-white/80"
                   style={{ animationDelay: `${i * 0.1}s` }}
@@ -109,15 +109,16 @@ export default function Hero({ onGetStarted }: HeroProps) {
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4">
-              <Button 
+              <Button
                 onClick={onGetStarted}
                 className="cyber-button text-base px-8 py-6 group"
               >
                 Get Started Free
                 <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
               </Button>
-              <Button 
+              <Button
                 variant="outline"
+                onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
                 className="border-cyber-blue/50 text-white hover:bg-cyber-blue/10 px-8 py-6 group"
               >
                 <Play className="w-5 h-5 mr-2 text-cyber-cyan" />
@@ -128,7 +129,7 @@ export default function Hero({ onGetStarted }: HeroProps) {
             {/* Stats */}
             <div className="flex flex-wrap gap-8 pt-4">
               {stats.map((stat, i) => (
-                <div 
+                <div
                   key={stat.label}
                   className={`flex items-center gap-3 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
                   style={{ transitionDelay: `${0.5 + i * 0.1}s` }}
@@ -148,7 +149,7 @@ export default function Hero({ onGetStarted }: HeroProps) {
             <div className="flex items-center gap-4 pt-4">
               <div className="flex -space-x-2">
                 {[...Array(5)].map((_, i) => (
-                  <div 
+                  <div
                     key={i}
                     className="w-8 h-8 rounded-full bg-gradient-to-br from-cyber-blue to-cyber-cyan border-2 border-cyber-dark flex items-center justify-center text-xs font-bold"
                   >
@@ -163,16 +164,16 @@ export default function Hero({ onGetStarted }: HeroProps) {
           </div>
 
           {/* Right Content - Dashboard Preview */}
-          <div 
+          <div
             className={`relative transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-10'}`}
-            style={{ 
+            style={{
               transitionDelay: '0.3s',
-              transform: `perspective(1000px) rotateY(${mousePosition.x}deg) rotateX(${-mousePosition.y}deg)` 
+              transform: `perspective(1000px) rotateY(${mousePosition.x}deg) rotateX(${-mousePosition.y}deg)`
             }}
           >
             {/* Glow Effect */}
             <div className="absolute -inset-4 bg-gradient-to-r from-cyber-blue/20 via-cyber-cyan/20 to-cyber-blue/20 rounded-3xl blur-2xl opacity-50" />
-            
+
             {/* Dashboard Card */}
             <div className="relative cyber-card p-6 animate-float">
               {/* Header */}
@@ -269,7 +270,7 @@ export default function Hero({ onGetStarted }: HeroProps) {
                 <p className="text-[10px] text-white/50">Accuracy</p>
               </div>
             </div>
-            
+
             <div className="absolute -bottom-4 -left-4 w-24 h-16 cyber-card p-3 animate-float" style={{ animationDelay: '1s' }}>
               <div className="text-center">
                 <p className="text-lg font-exo font-bold text-cyber-cyan">24/7</p>

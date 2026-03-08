@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from 'sonner';
 import {
   Scan,
   AlertTriangle,
@@ -211,10 +212,17 @@ export default function SMSScanner() {
 
                 {result.isScam && (
                   <div className="mt-6 pt-4 border-t border-white/10 flex gap-4">
-                    <Button className="flex-1 bg-cyber-red hover:bg-red-600 text-white font-bold">
+                    <Button
+                      onClick={() => toast.success('Sender blocked across all linked devices.')}
+                      className="flex-1 bg-cyber-red hover:bg-red-600 text-white font-bold"
+                    >
                       <Shield className="w-4 h-4 mr-2" /> BLOCK SENDER
                     </Button>
-                    <Button variant="outline" className="flex-1 border-white/20 text-white">
+                    <Button
+                      variant="outline"
+                      onClick={() => toast.info('Detailed threat report submitted to I4C portal.')}
+                      className="flex-1 border-white/20 text-white"
+                    >
                       REPORT TO AUTHORITIES
                     </Button>
                   </div>
@@ -241,7 +249,11 @@ export default function SMSScanner() {
                 </div>
               ) : (
                 history.map(item => (
-                  <div key={item.id} className="glass-panel p-3 hover:bg-white/5 transition-colors group cursor-pointer border-l-2 border-transparent hover:border-cyber-cyan">
+                  <div
+                    key={item.id}
+                    onClick={() => setResult(item)}
+                    className="glass-panel p-3 hover:bg-white/5 transition-colors group cursor-pointer border-l-2 border-transparent hover:border-cyber-cyan"
+                  >
                     <div className="flex justify-between items-start mb-2">
                       <div className="flex items-center gap-2">
                         {item.type === 'SMS' && <Phone className="w-3 h-3 text-cyber-blue" />}

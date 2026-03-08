@@ -5,32 +5,7 @@ interface FooterProps {
   onNavigate: (page: Page) => void;
 }
 
-const footerLinks = {
-  product: [
-    { label: 'Features', href: '#' },
-    { label: 'Pricing', href: '#' },
-    { label: 'API', href: '#' },
-    { label: 'Integrations', href: '#' },
-  ],
-  company: [
-    { label: 'About', href: '#' },
-    { label: 'Blog', href: '#' },
-    { label: 'Careers', href: '#' },
-    { label: 'Press', href: '#' },
-  ],
-  resources: [
-    { label: 'Documentation', href: '#' },
-    { label: 'Help Center', href: '#' },
-    { label: 'Community', href: '#' },
-    { label: 'Status', href: '#' },
-  ],
-  legal: [
-    { label: 'Privacy', href: '#' },
-    { label: 'Terms', href: '#' },
-    { label: 'Security', href: '#' },
-    { label: 'Cookies', href: '#' },
-  ],
-};
+
 
 const socialLinks = [
   { icon: Twitter, href: '#', label: 'Twitter' },
@@ -44,7 +19,7 @@ export default function Footer({ onNavigate }: FooterProps) {
     <footer className="relative pt-20 pb-8 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-t from-cyber-darker to-cyber-dark" />
-      
+
       {/* Top Border */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyber-blue/30 to-transparent" />
 
@@ -53,7 +28,7 @@ export default function Footer({ onNavigate }: FooterProps) {
         <div className="grid grid-cols-2 md:grid-cols-6 gap-8 mb-16">
           {/* Brand Column */}
           <div className="col-span-2">
-            <button 
+            <button
               onClick={() => onNavigate('home')}
               className="flex items-center gap-2 mb-4"
             >
@@ -65,10 +40,10 @@ export default function Footer({ onNavigate }: FooterProps) {
               </span>
             </button>
             <p className="text-white/50 text-sm mb-6 max-w-xs">
-              National-level cyber intelligence platform protecting millions 
+              National-level cyber intelligence platform protecting millions
               from scams, phishing, and fraud.
             </p>
-            
+
             {/* Contact Info */}
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm text-white/50">
@@ -90,14 +65,26 @@ export default function Footer({ onNavigate }: FooterProps) {
           <div>
             <h4 className="font-semibold text-white mb-4">Product</h4>
             <ul className="space-y-2">
-              {footerLinks.product.map((link) => (
+              {[
+                { label: 'Features', id: 'features' },
+                { label: 'Pricing', id: 'pricing' },
+                { label: 'FAQ', id: 'faq' },
+                { label: 'API', id: 'home' },
+              ].map((link) => (
                 <li key={link.label}>
-                  <a 
-                    href={link.href}
+                  <button
+                    onClick={() => {
+                      if (link.id === 'home') onNavigate('home');
+                      else {
+                        const element = document.getElementById(link.id);
+                        if (element) element.scrollIntoView({ behavior: 'smooth' });
+                        else onNavigate('home');
+                      }
+                    }}
                     className="text-sm text-white/50 hover:text-white transition-colors"
                   >
                     {link.label}
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -107,14 +94,14 @@ export default function Footer({ onNavigate }: FooterProps) {
           <div>
             <h4 className="font-semibold text-white mb-4">Company</h4>
             <ul className="space-y-2">
-              {footerLinks.company.map((link) => (
-                <li key={link.label}>
-                  <a 
-                    href={link.href}
+              {['About', 'Blog', 'Careers', 'Press'].map((label) => (
+                <li key={label}>
+                  <button
+                    onClick={() => onNavigate('home')}
                     className="text-sm text-white/50 hover:text-white transition-colors"
                   >
-                    {link.label}
-                  </a>
+                    {label}
+                  </button>
                 </li>
               ))}
             </ul>
@@ -124,14 +111,14 @@ export default function Footer({ onNavigate }: FooterProps) {
           <div>
             <h4 className="font-semibold text-white mb-4">Resources</h4>
             <ul className="space-y-2">
-              {footerLinks.resources.map((link) => (
-                <li key={link.label}>
-                  <a 
-                    href={link.href}
+              {['Documentation', 'Help Center', 'Community', 'Status'].map((label) => (
+                <li key={label}>
+                  <button
+                    onClick={() => onNavigate('dashboard')}
                     className="text-sm text-white/50 hover:text-white transition-colors"
                   >
-                    {link.label}
-                  </a>
+                    {label}
+                  </button>
                 </li>
               ))}
             </ul>
@@ -141,14 +128,14 @@ export default function Footer({ onNavigate }: FooterProps) {
           <div>
             <h4 className="font-semibold text-white mb-4">Legal</h4>
             <ul className="space-y-2">
-              {footerLinks.legal.map((link) => (
-                <li key={link.label}>
-                  <a 
-                    href={link.href}
+              {['Privacy', 'Terms', 'Security', 'Cookies'].map((label) => (
+                <li key={label}>
+                  <button
+                    onClick={() => onNavigate('home')}
                     className="text-sm text-white/50 hover:text-white transition-colors"
                   >
-                    {link.label}
-                  </a>
+                    {label}
+                  </button>
                 </li>
               ))}
             </ul>
@@ -163,7 +150,7 @@ export default function Footer({ onNavigate }: FooterProps) {
               <p className="text-sm text-white/50">Get the latest security alerts and updates</p>
             </div>
             <div className="flex gap-2 w-full md:w-auto">
-              <input 
+              <input
                 type="email"
                 placeholder="Enter your email"
                 className="cyber-input flex-1 md:w-64"
@@ -180,7 +167,7 @@ export default function Footer({ onNavigate }: FooterProps) {
           <p className="text-sm text-white/40">
             © 2025 AI Scam Shield X. All rights reserved. A National Cyber Security Initiative.
           </p>
-          
+
           {/* Social Links */}
           <div className="flex items-center gap-3">
             {socialLinks.map((social) => (
